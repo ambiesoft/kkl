@@ -22,7 +22,7 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
             this, &CkklWindow::close);
 
     createTrayIcon();
-    QIcon icon(":images/icon.png");
+    QIcon icon(":images/icon.ico");
     Q_ASSERT(!icon.isNull());
     trayIcon->setIcon(icon);
     trayIcon->show();
