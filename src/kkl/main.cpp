@@ -7,6 +7,9 @@
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setApplicationName("KKL");
+    QCoreApplication::setApplicationVersion("3.01");
+
     Q_INIT_RESOURCE(kkl);
     QApplication app(argc, argv);
 
