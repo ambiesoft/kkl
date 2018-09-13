@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 //    win.hide();
 
     win.resize(240, 20);
-    win.move(0,0);
+    win.move(300,300);
 
     return app.exec();
 }
