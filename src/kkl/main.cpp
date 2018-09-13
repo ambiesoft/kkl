@@ -61,6 +61,8 @@ int main(int argc, char *argv[])
         return 1;
 
     CkklWindow win;
+    if(!win.initialized())
+        return -1;
 
 //    win.resize(0,0);
 //    win.show();

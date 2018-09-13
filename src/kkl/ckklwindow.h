@@ -11,11 +11,15 @@ class CkklWindow : public QWidget
     Q_OBJECT
     using ParentClass = QWidget;
 
+    bool initialized_ = false;
+
 private:
     void createTrayIcon();
 public:
     explicit CkklWindow(QWidget *parent = nullptr);
-
+    bool initialized() const {
+        return initialized_;
+    }
 signals:
 
 public slots:

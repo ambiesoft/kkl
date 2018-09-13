@@ -1,0 +1,24 @@
+{
+    "name": "kkl",
+	"builtexes": [
+		"kkl\\release\\kkl.exe"
+	],
+	"copyplugins": [
+		"imageformats/qico.dll"
+	],
+    "ShouldBeFiles": [
+    ],
+
+    "ShouldNotBeFiles": [
+    ],
+
+
+
+    "TotalFileCount": 16,
+    "archivedir": "C:\\Linkout",
+    "remotedir": "http://ambiesoft.fam.cx/ffdav/uploads/kkl/",
+    "remotesha1": "http://ambiesoft.fam.cx/ffdav/uploads/getSha1.php?file=kkl/{}",
+    "ShouldBeOneOfThem": [],
+    "obtainverfrom": "History.txt",
+    "obtainverregex": "\\d+\\.\\d+\\.\\d"
+}

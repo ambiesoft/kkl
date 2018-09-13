@@ -66,8 +66,17 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
     createTrayIcon();
     QIcon icon(":images/icon.ico");
     Q_ASSERT(!icon.isNull());
+    if(icon.isNull())
+    {
+        QMessageBox::critical(nullptr,
+                              QApplication::applicationName(),
+                              tr("icon not found"));
+        return;
+    }
     trayIcon->setIcon(icon);
     trayIcon->show();
+
+    initialized_ = true;
 }
 
 void CkklWindow::onHotkeyShow()
