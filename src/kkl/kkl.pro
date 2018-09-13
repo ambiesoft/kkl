@@ -36,12 +36,17 @@ unix:SOURCES  += ../../qglobalshortcut/src/qglobalshortcut_x11.cc
 SOURCES += \
         main.cpp \
     ckklwindow.cpp \
-    ../../qglobalshortcut/src/qglobalshortcut.cc
+    ../../qglobalshortcut/src/qglobalshortcut.cc \
+    ../../../lsMisc/stdQt/stdQt.cpp \
+    settings.cpp
 
 HEADERS += \
     ckklwindow.h \
     stable.h \
-    ../../qglobalshortcut/src/qglobalshortcut.h
+    ../../qglobalshortcut/src/qglobalshortcut.h \
+    ../../../profile/cpp/Profile/include/ambiesoft.profile.h \
+    ../../../lsMisc/stdQt/stdQt.h \
+    settings.h
 
 FORMS +=
 

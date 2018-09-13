@@ -3,8 +3,11 @@
 #include <QCloseEvent>
 #include <QApplication>
 #include <QPainter>
+#include <QDebug>
 
 #include "../../qglobalshortcut/src/qglobalshortcut.h"
+
+#include "settings.h"
 
 #include "ckklwindow.h"
 
@@ -30,18 +33,40 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
     connect(closeAction, &QAction::triggered,
             this, &CkklWindow::close);
 
+
+
+    // Prepare global hotkeys
+    do
+    {
+        if(gSettings.hotKey.isEmpty())
+        {
+            QMessageBox::critical(this,
+                                  QApplication::applicationName(),
+                                  tr("Hot-key is empty."));
+            break;
+        }
+        QKeySequence qks(gSettings.hotKey);
+
+        qDebug() << QString("setting='%1', toString()=='%2'").arg(gSettings.hotKey).arg(qks.toString());
+        if(qks.toString() != gSettings.hotKey)
+        {
+            QMessageBox::critical(this,
+                                  QApplication::applicationName(),
+                                  QString(tr("%1 is invalid hot-key")).arg(gSettings.hotKey));
+            break;
+        }
+        gs_.setKey(qks); // "Alt+2"));
+
+        connect(&gs_, SIGNAL(activated()),
+                this, SLOT(onHotkeyShow()));
+    } while(false);
+
+    // show tray icon
     createTrayIcon();
     QIcon icon(":images/icon.ico");
     Q_ASSERT(!icon.isNull());
     trayIcon->setIcon(icon);
     trayIcon->show();
-
-
-    // Prepare global hotkeys
-    gs_.setKey(QKeySequence("Alt+2"));
-
-    connect(&gs_, SIGNAL(activated()),
-            this, SLOT(onHotkeyShow()));
 }
 
 void CkklWindow::onHotkeyShow()

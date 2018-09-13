@@ -10,6 +10,8 @@
 #include <QWidget>
 #include <QMessageBox>
 #include <QMenu>
+#include <QStandardPaths>
+#include <QDebug>
 
 #endif // __cplusplus
 
