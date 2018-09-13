@@ -15,15 +15,14 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
 {
     setFocusPolicy(Qt::StrongFocus);
 
-    resize(240, 20);
-    move(0,0);
-
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::Tool);
 
     // Qt::Tool cause closing window not close the app.
     // This flag makes it close the app.
+    qDebug() << "QuiteOnClose=" << testAttribute(Qt::WA_QuitOnClose);
     setAttribute(Qt::WA_QuitOnClose);
-
+    qDebug() << "QuiteOnClose=" << testAttribute(Qt::WA_QuitOnClose);
+    QApplication::setQuitLockEnabled(false);
 
     showVersionAction = new QAction(tr("Show &Version"), this);
     connect(showVersionAction, &QAction::triggered,
@@ -40,21 +39,23 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
     {
         if(gSettings.hotKey.isEmpty())
         {
-            QMessageBox::critical(this,
+            QMessageBox::critical(nullptr,
                                   QApplication::applicationName(),
                                   tr("Hot-key is empty."));
             break;
         }
         QKeySequence qks(gSettings.hotKey);
 
+        // if hot-key is valid, toString() returns its value otherwise returns "".
         qDebug() << QString("setting='%1', toString()=='%2'").arg(gSettings.hotKey).arg(qks.toString());
-        if(qks.toString() != gSettings.hotKey)
+        if(qks.toString().compare(gSettings.hotKey, Qt::CaseInsensitive) != 0)
         {
-            QMessageBox::critical(this,
+            QMessageBox::critical(nullptr,
                                   QApplication::applicationName(),
-                                  QString(tr("%1 is invalid hot-key")).arg(gSettings.hotKey));
+                                  QString(tr("'%1' is not a valid hot-key")).arg(gSettings.hotKey));
             break;
         }
+        // Register hot-key to system
         gs_.setKey(qks); // "Alt+2"));
 
         connect(&gs_, SIGNAL(activated()),
@@ -85,7 +86,7 @@ void CkklWindow::createTrayIcon()
 }
 void CkklWindow::showVersion()
 {
-    QMessageBox::about(this,
+    QMessageBox::about(nullptr,
                        QCoreApplication::applicationName(),
                        QString("%1 version %2").
                        arg(QCoreApplication::applicationName()).
@@ -101,6 +102,9 @@ void CkklWindow::closeEvent(QCloseEvent *event)
     trayIcon=nullptr;
 
     ParentClass::closeEvent(event);
+
+    // we need this, becase QApplication::quitOnLastWindowClosed() is false.
+    QApplication::quit();
 }
 
 void CkklWindow::focusOutEvent(QFocusEvent* event)

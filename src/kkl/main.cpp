@@ -16,23 +16,30 @@ using namespace Ambiesoft;
 
 bool ReadSettings()
 {
-    QString a = pathCombine(QDir().homePath(),".kkl","kkl.conf");
+    {
+        QString inipath = pathCombine(QDir().homePath(),".kkl");
+        QDir(inipath).mkdir(".");
+        inipath = pathCombine(inipath, "kkl.conf");
 
-    int testvalue = static_cast<int>(time(nullptr));
-    Profile::WriteInt("TEST", "TESTVALUE",testvalue,a.toStdString().c_str());
+        int testvalue = static_cast<int>(time(nullptr));
+        Profile::WriteInt("TEST", "TESTVALUE",testvalue,inipath.toStdString().c_str());
 
-    int t;
-    Profile::GetInt("TEST","TESTVALUE",-1,t,a.toStdString().c_str());
+        int t;
+        Profile::GetInt("TEST","TESTVALUE",-1,t,inipath.toStdString().c_str());
 
-    if(testvalue != t)
-        return false;
+        if(testvalue != t)
+            return false;
 
-    std::string s;
-    HashIniHandle hih = Profile::ReadAll(a.toStdString());
+        std::string s;
+        HashIniHandle hih = Profile::ReadAll(inipath.toStdString());
 
-    Profile::GetString("settings", "hot key", "", s, hih);
-    gSettings.hotKey = s.c_str();
+        Profile::GetString("settings", "hot key", "", s, hih);
+        gSettings.hotKey = s.c_str();
+    }
 
+    {
+        // read ini
+    }
     return true;
 }
 int main(int argc, char *argv[])
@@ -53,8 +60,14 @@ int main(int argc, char *argv[])
     if(!ReadSettings())
         return 1;
 
-    CkklWindow window;
-    // window.show();
+    CkklWindow win;
+
+//    win.resize(0,0);
+//    win.show();
+//    win.hide();
+
+    win.resize(240, 20);
+    win.move(0,0);
 
     return app.exec();
 }

@@ -27,7 +27,7 @@ unix:QT = x11extras
 unix:LIBS += -lX11 -lxcb
 unix:QMAKE_CXXFLAGS += "-std=c++11"
 
-win32:LIBS += User32.lib
+win32-msvc:LIBS += User32.lib
 win32:SOURCES += ../../qglobalshortcut/src/qglobalshortcut_win.cc
 unix:SOURCES  += ../../qglobalshortcut/src/qglobalshortcut_x11.cc
 #macx:SOURCES  += src/qglobalshortcut_macx.cc

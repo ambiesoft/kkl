@@ -9,8 +9,13 @@
 #include <QApplication>
 #include <QWidget>
 #include <QMessageBox>
+#include <QDir>
+#include <QPainter>
+#include <QCloseEvent>
+#include <QSystemTrayIcon>
 #include <QMenu>
 #include <QStandardPaths>
+#include <QString>
 #include <QDebug>
 
 #endif // __cplusplus
