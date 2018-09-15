@@ -7,7 +7,7 @@
 
 #include <ctime>
 
-#include "../../qglobalshortcut/src/qglobalshortcut.h"
+#include "../../../qglobalshortcut/src/qglobalshortcut.h"
 
 #include "settings.h"
 

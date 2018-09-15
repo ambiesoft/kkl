@@ -28,22 +28,22 @@ unix:LIBS += -lX11 -lxcb
 unix:QMAKE_CXXFLAGS += "-std=c++11"
 
 win32-msvc:LIBS += User32.lib
-win32:SOURCES += ../../qglobalshortcut/src/qglobalshortcut_win.cc
-unix:SOURCES  += ../../qglobalshortcut/src/qglobalshortcut_x11.cc
+win32:SOURCES += ../../../qglobalshortcut/src/qglobalshortcut_win.cc
+unix:SOURCES  += ../../../qglobalshortcut/src/qglobalshortcut_x11.cc
 #macx:SOURCES  += src/qglobalshortcut_macx.cc
 
 
 SOURCES += \
         main.cpp \
     ckklwindow.cpp \
-    ../../qglobalshortcut/src/qglobalshortcut.cc \
+    ../../../qglobalshortcut/src/qglobalshortcut.cc \
     ../../../lsMisc/stdQt/stdQt.cpp \
     settings.cpp
 
 HEADERS += \
     ckklwindow.h \
     stable.h \
-    ../../qglobalshortcut/src/qglobalshortcut.h \
+    ../../../qglobalshortcut/src/qglobalshortcut.h \
     ../../../profile/cpp/Profile/include/ambiesoft.profile.h \
     ../../../lsMisc/stdQt/stdQt.h \
     settings.h

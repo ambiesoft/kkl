@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QSystemTrayIcon>
 
-#include "../../qglobalshortcut/src/qglobalshortcut.h"
+#include "../../../qglobalshortcut/src/qglobalshortcut.h"
 
 class CkklWindow : public QWidget
 {
