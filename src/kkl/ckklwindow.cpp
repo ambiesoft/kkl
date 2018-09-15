@@ -5,6 +5,8 @@
 #include <QPainter>
 #include <QDebug>
 
+#include <ctime>
+
 #include "../../qglobalshortcut/src/qglobalshortcut.h"
 
 #include "settings.h"
@@ -56,7 +58,13 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
             break;
         }
         // Register hot-key to system
-        gs_.setKey(qks); // "Alt+2"));
+        if(!gs_.setKey(qks))
+        {
+            QMessageBox::critical(nullptr,
+                                  QApplication::applicationName(),
+                                  QString(tr("Registering hot-key with '%1' is failed")).arg(gSettings.hotKey));
+            break;
+        }
 
         connect(&gs_, SIGNAL(activated()),
                 this, SLOT(onHotkeyShow()));
@@ -81,8 +89,10 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
 
 void CkklWindow::onHotkeyShow()
 {
+    qDebug() << "Timer" << QString::number(std::clock());
     this->show();
     this->activateWindow();
+    qDebug() << "Timer" << QString::number(std::clock());
 }
 void CkklWindow::createTrayIcon()
 {

@@ -17,6 +17,7 @@
 #include <QStandardPaths>
 #include <QString>
 #include <QDebug>
+#include <QElapsedTimer>
 
 #endif // __cplusplus
 
