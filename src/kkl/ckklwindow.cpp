@@ -70,6 +70,8 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
                 this, SLOT(onHotkeyShow()));
     } while(false);
 
+    create();
+
     // show tray icon
     createTrayIcon();
     QIcon icon(":images/icon.ico");
@@ -90,6 +92,8 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
 void CkklWindow::onHotkeyShow()
 {
     qDebug() << "Timer" << QString::number(std::clock());
+    resize(240, 20);
+    move(300,300);
     this->show();
     this->activateWindow();
     qDebug() << "Timer" << QString::number(std::clock());
