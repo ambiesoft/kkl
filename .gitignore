@@ -4,3 +4,9 @@ build/
 *.user
 
 prepare.bat
+
+# vc create
+.qmake.stash
+.vs/
+kkl.sln
+
