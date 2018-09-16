@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QMessageBox>
 #include <QDir>
+#include <QFileInfo>
 
 #include "../../../profile/cpp/Profile/include/ambiesoft.profile.h"
 #include "../../../lsMisc/stdQt/stdQt.h"
@@ -18,8 +19,16 @@ using namespace Ambiesoft;
 bool ReadSettings()
 {
     {
-        QString inipath = pathCombine(QDir().homePath(),".kkl");
-        QDir(inipath).mkdir(".");
+        QString inipath = QDir().homePath();
+        QDir(inipath).mkdir(".kkl");
+        inipath = pathCombine(inipath, ".kkl");
+        if(!QFileInfo(inipath).isDir())
+        {
+            QMessageBox::critical(nullptr,
+                                  QApplication::applicationName(),
+                                  QObject::tr("Failed to create directory '%1'.").arg(inipath));
+
+        }
         inipath = pathCombine(inipath, "kkl.conf");
 
         int testvalue = static_cast<int>(time(nullptr));
@@ -29,7 +38,12 @@ bool ReadSettings()
         Profile::GetInt("TEST","TESTVALUE",-1,t,inipath.toStdString().c_str());
 
         if(testvalue != t)
+        {
+            QMessageBox::critical(nullptr,
+                                  QApplication::applicationName(),
+                                  QObject::tr("Failed to write to '%1'.").arg(inipath));
             return false;
+        }
 
         std::string s;
         HashIniHandle hih = Profile::ReadAll(inipath.toStdString());

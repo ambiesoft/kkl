@@ -23,7 +23,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Added from https://github.com/ambiesoft/qglobalshortcut
-unix:QT = x11extras
+unix:QT += x11extras
 unix:LIBS += -lX11 -lxcb
 unix:QMAKE_CXXFLAGS += "-std=c++11"
 
