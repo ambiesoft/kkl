@@ -4,12 +4,16 @@
 #include <QApplication>
 #include <QPainter>
 #include <QDebug>
+#include <QPen>
+#include <QTextDocument>
+#include <QProcess>
 
 #include <ctime>
 
 #include "../../../qglobalshortcut/src/qglobalshortcut.h"
 
-#include "settings.h"
+#include "../settings.h"
+#include "osd.h"
 
 #include "ckklwindow.h"
 
@@ -134,21 +138,132 @@ void CkklWindow::focusOutEvent(QFocusEvent* event)
 {
     ParentClass::focusOutEvent(event);
 
+    currentKeys_.clear();
     this->hide();
 }
 void CkklWindow::paintEvent(QPaintEvent*)
 {
+    qDebug() << "Paint" << currentKeys_;
     QPainter painter(this);
-    QRect geo = this->geometry();
 
-//    int x, y, width, height;
+//    int width = size().width() - 3;
+//    int height = size().height() - 5;
 
-//    x = geo.x()-10;
-//    y = geo.y()-10;
-//    width = geo.width()-3;
-//    height = geo.height()-5;
+//    painter.fillRect(0, 0, width, height, QColor(220,220,220));
 
-    // painter.fillRect(x, y, width, height, QColor(220,220,220));
 
-    painter.drawText(geo, "aaaaaa", QTextOption(Qt::AlignVCenter));
+//    QPen myPen(Qt::black, 2, Qt::SolidLine);
+//    painter.setPen(myPen);
+//    painter.drawText(0,0, currentKeys_);//, QTextOption(Qt::AlignVCenter));
+
+    QTextDocument td;
+    td.setHtml(currentKeys_);
+    td.drawContents(&painter);
+}
+
+QString dq(const QString& s)
+{
+    if(s.isEmpty())
+        return "\"\"";
+
+    if(s[0]=='"')
+        return s;
+
+    for(auto&& c : s)
+    {
+        if(c==' ' || c=='\t')
+        {
+            return "\"" + s + "\"";
+        }
+    }
+    return s;
+}
+//void CkklWindow::launchApp(const KKLItem& item)
+//{
+//    QString startcmd = dq(item.Exe());
+//    if(!item.File().isEmpty())
+//        startcmd += " " + item.File();
+
+//    QProcess process;
+
+//    qDebug() << "Launch" << startcmd;
+//    process.start(startcmd);
+//}
+
+void CkklWindow::keyPressEvent(QKeyEvent *event)
+{
+    qDebug() << event;
+
+    bool isReturn = false;
+    if(event->key() == Qt::Key::Key_Backspace)
+    {
+        if(!currentKeys_.isEmpty())
+            currentKeys_.remove(currentKeys_.length()-1,1);
+        update();
+        return;
+    }
+    else if(event->key() == Qt::Key::Key_Return)
+    {
+        isReturn = true;
+    }
+    else if( event->text().size() != 1)
+    {
+        return;
+    }
+
+    QString newKeys = currentKeys_ + event->text();
+
+    KKLIterator it;
+
+    if(!isReturn)
+    {
+        // first, test match
+        for (it = gItems.begin(); it != gItems.end(); ++it)
+        {
+            // match
+            if(it.key()==newKeys)
+            {
+                launchApp(this,it.value());
+                currentKeys_ = "";
+                update();
+                hide();
+                return;
+            }
+        }
+    }
+
+
+    // not match, find kouho
+    QList<KKLItem> newkouho;
+    QList<KKLItem> currentkouho;
+    for (it = gItems.begin(); it != gItems.end(); ++it)
+    {
+        // is kouho?
+        if(it.key().startsWith(newKeys))
+        {
+            newkouho.append(it.value());
+        }
+        if(it.key().startsWith(currentKeys_))
+        {
+            currentkouho.append(it.value());
+        }
+    }
+
+    if(isReturn && currentkouho.size()==1)
+    {
+        launchApp(this, currentkouho[0]);
+        currentKeys_.clear();
+        update();
+        hide();
+        return;
+    }
+
+    if(newkouho.isEmpty())
+    {
+        // new keys have no kouho, cancel it
+        return;
+    }
+
+    currentKeys_.append( event->text());
+    this->update();
 }

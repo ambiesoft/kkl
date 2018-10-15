@@ -38,8 +38,9 @@ SOURCES += \
     ckklwindow.cpp \
     ../../../qglobalshortcut/src/qglobalshortcut.cc \
     ../../../lsMisc/stdQt/stdQt.cpp \
-    settings.cpp \
-    ../../../lsMisc/stdQt/runguard.cpp
+    ../settings.cpp \
+    ../../../lsMisc/stdQt/runguard.cpp \
+    osd_win.cpp
 
 HEADERS += \
     ckklwindow.h \
@@ -47,8 +48,9 @@ HEADERS += \
     ../../../qglobalshortcut/src/qglobalshortcut.h \
     ../../../profile/cpp/Profile/include/ambiesoft.profile.h \
     ../../../lsMisc/stdQt/stdQt.h \
-    settings.h \
-    ../../../lsMisc/stdQt/runguard.h
+    ../settings.h \
+    ../../../lsMisc/stdQt/runguard.h \
+    osd.h
 
 FORMS +=
 

@@ -18,6 +18,12 @@ public:
     bool initialized() const {
         return initialized_;
     }
+protected:
+    void closeEvent(QCloseEvent *event);
+
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::CkklSetting *ui;
 

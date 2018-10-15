@@ -27,13 +27,19 @@ SOURCES += \
         main.cpp \
         ckklsetting.cpp \
     ../../../lsMisc/stdQt/stdQt.cpp \
-    osd.cpp
+    osd.cpp \
+    ../settings.cpp \
+    ../../../lsMisc/stdQt/runguard.cpp \
+    ../../../lsMisc/stdQt/stdQt.cpp
 
 HEADERS += \
         ckklsetting.h \
     ../../../profile/cpp/Profile/include/ambiesoft.profile.h \
     ../../../lsMisc/stdQt/stdQt.h \
-    osd.h
+    osd.h \
+    ../settings.h \
+    ../../../lsMisc/stdQt/runguard.h \
+    ../../../lsMisc/stdQt/stdQt.h
 
 FORMS += \
         ckklsetting.ui
