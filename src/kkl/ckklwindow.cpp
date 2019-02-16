@@ -77,7 +77,13 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
     create();
 
     // show tray icon
-    createTrayIcon();
+    trayIconMenu = new QMenu(this);
+    trayIconMenu->addAction(showVersionAction);
+    trayIconMenu->addAction(closeAction);
+
+    trayIcon = new QSystemTrayIcon(this);
+    trayIcon->setContextMenu(trayIconMenu);
+
     QIcon icon(":images/icon.ico");
     Q_ASSERT(!icon.isNull());
     if(icon.isNull())
@@ -90,6 +96,8 @@ CkklWindow::CkklWindow(QWidget *parent) : QWidget(parent)
     trayIcon->setIcon(icon);
     trayIcon->show();
 
+
+
     initialized_ = true;
 }
 
@@ -101,15 +109,6 @@ void CkklWindow::onHotkeyShow()
     this->show();
     this->activateWindow();
     qDebug() << "Timer" << QString::number(std::clock());
-}
-void CkklWindow::createTrayIcon()
-{
-    trayIconMenu = new QMenu(this);
-    trayIconMenu->addAction(showVersionAction);
-    trayIconMenu->addAction(closeAction);
-
-    trayIcon = new QSystemTrayIcon(this);
-    trayIcon->setContextMenu(trayIconMenu);
 }
 void CkklWindow::showVersion()
 {

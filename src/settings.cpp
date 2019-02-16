@@ -11,6 +11,7 @@ Settings gSettings;
 QMap<QString, KKLItem> gItems;
 
 using namespace Ambiesoft;
+using namespace AmbiesoftQt;
 
 static bool testIniFile(const QString& inifile)
 {

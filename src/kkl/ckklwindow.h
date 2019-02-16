@@ -15,8 +15,8 @@ class CkklWindow : public QWidget
     QString currentKeys_;
 
 private:
-    void createTrayIcon();
-    // void launchApp(const KKLItem& item);
+
+
 public:
     explicit CkklWindow(QWidget *parent = nullptr);
     bool initialized() const {
@@ -35,7 +35,7 @@ protected:
     void closeEvent(QCloseEvent *event) override;
     void focusOutEvent(QFocusEvent* event) override;
     void paintEvent(QPaintEvent*) override;
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
 private:
     QAction *showVersionAction;
     QAction *closeAction;
