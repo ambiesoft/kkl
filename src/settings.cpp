@@ -52,7 +52,7 @@ bool ReadSettings()
         std::string s;
         HashIniHandle hih = Profile::ReadAll(confpath.toStdString());
 
-        Profile::GetString("settings", "hot key", "", s, hih);
+        Profile::GetString("settings", "hot key", "ALT+2", s, hih);
         gSettings.hotKey = s.c_str();
     }
 
