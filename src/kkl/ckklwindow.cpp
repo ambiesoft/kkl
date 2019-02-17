@@ -193,7 +193,7 @@ void CkklWindow::keyPressEvent(QKeyEvent *event)
 {
     qDebug() << event;
 
-    bool isReturn = false;
+    bool isReturnKey = false;
     if(event->key() == Qt::Key::Key_Backspace)
     {
         if(!currentKeys_.isEmpty())
@@ -203,7 +203,7 @@ void CkklWindow::keyPressEvent(QKeyEvent *event)
     }
     else if(event->key() == Qt::Key::Key_Return)
     {
-        isReturn = true;
+        isReturnKey = true;
     }
     else if( event->text().size() != 1)
     {
@@ -214,7 +214,7 @@ void CkklWindow::keyPressEvent(QKeyEvent *event)
 
     KKLIterator it;
 
-    if(!isReturn)
+    if(!isReturnKey)
     {
         // first, test match
         for (it = gItems.begin(); it != gItems.end(); ++it)
@@ -248,7 +248,7 @@ void CkklWindow::keyPressEvent(QKeyEvent *event)
         }
     }
 
-    if(isReturn && currentkouho.size()==1)
+    if(isReturnKey && currentkouho.size()==1)
     {
         launchApp(this, currentkouho[0]);
         currentKeys_.clear();
