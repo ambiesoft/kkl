@@ -39,7 +39,40 @@ HEADERS += \
     osd.h \
     ../settings.h \
     ../../../lsMisc/stdQt/runguard.h \
-    ../../../lsMisc/stdQt/stdQt.h
+    ../../../lsMisc/stdQt/stdQt.h \
+    stdafx.h
+
+
+win32 {
+    message("win32")
+
+    SOURCES += \
+            ../../../lsMisc/GetLastErrorString.cpp \
+            ../../../lsMisc/stdQt/stdQt_win32.cpp
+
+    HEADERS += \
+            ../../../lsMisc/GetLastErrorString.h \
+
+    win32-g++ {
+        message("win32-g++")
+        LIBS += -lshlwapi
+    }
+    win32-msvc* {
+        message("win32-msvc*")
+        LIBS += User32.lib shlwapi.lib
+        # Ole32.lib
+    }
+    RC_ICONS +=
+}
+linux {
+    message("linux-g++")
+
+
+    SOURCES += \
+        ../../../lsMisc/stdQt/stdQt_linux.cpp
+
+    RC_ICONS +=
+}
 
 FORMS += \
         ckklsetting.ui
