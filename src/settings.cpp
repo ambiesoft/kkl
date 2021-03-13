@@ -50,7 +50,7 @@ bool ReadSettings()
             return false;
 
         std::string s;
-        HashIniHandle hih = Profile::ReadAll(confpath.toStdString());
+        Profile::CHashIni hih(Profile::ReadAll(confpath.toStdString()));
 
         Profile::GetString("settings", "hot key", "ALT+2", s, hih);
         gSettings.hotKey = s.c_str();
@@ -63,7 +63,7 @@ bool ReadSettings()
         if(!testIniFile(inipath))
             return false;
 
-        HashIniHandle hih = Profile::ReadAll(inipath.toStdString());
+        Profile::CHashIni hih(Profile::ReadAll(inipath.toStdString()));
 
         std::string basename("command name");
         std::string basekey("command key");
