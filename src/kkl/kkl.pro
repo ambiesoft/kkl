@@ -66,7 +66,7 @@ win32 {
 
     win32-g++ {
         message("win32-g++")
-        LIBS += -lshlwapi
+        LIBS += -lshlwapi -lPsapi
     }
     win32-msvc* {
         message("win32-msvc*")

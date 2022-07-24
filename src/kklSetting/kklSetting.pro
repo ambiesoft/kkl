@@ -26,21 +26,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         ckklsetting.cpp \
-    ../../../lsMisc/stdQt/stdQt.cpp \
-    osd.cpp \
-    ../settings.cpp \
-    ../../../lsMisc/stdQt/runguard.cpp \
-    ../../../lsMisc/stdQt/stdQt.cpp
+        osd.cpp \
+        ../settings.cpp \
+        ../../../lsMisc/stdQt/runguard.cpp \
+        ../../../lsMisc/stdQt/stdQt.cpp
 
 HEADERS += \
         ckklsetting.h \
-    ../../../profile/cpp/Profile/include/ambiesoft.profile.h \
-    ../../../lsMisc/stdQt/stdQt.h \
-    osd.h \
-    ../settings.h \
-    ../../../lsMisc/stdQt/runguard.h \
-    ../../../lsMisc/stdQt/stdQt.h \
-    stdafx.h
+        ../../../profile/cpp/Profile/include/ambiesoft.profile.h \
+        ../../../lsMisc/stdQt/stdQt.h \
+        osd.h \
+        ../settings.h \
+        ../../../lsMisc/stdQt/runguard.h \
+        ../../../lsMisc/stdQt/stdQt.h \
+        stdafx.h
 
 
 win32 {
@@ -55,7 +54,7 @@ win32 {
 
     win32-g++ {
         message("win32-g++")
-        LIBS += -lshlwapi
+        LIBS += -lshlwapi -lPsapi
     }
     win32-msvc* {
         message("win32-msvc*")
